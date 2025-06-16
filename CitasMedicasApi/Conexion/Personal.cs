@@ -18,7 +18,6 @@ namespace CitasMedicasApi.Conexion
         public Personal()
         {
             this.Medicos = new HashSet<Medicos>();
-            this.Usuarios1 = new HashSet<Usuarios>();
         }
     
         public int PersonalId { get; set; }
@@ -43,8 +42,5 @@ namespace CitasMedicasApi.Conexion
         public virtual Departamentos Departamentos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Medicos> Medicos { get; set; }
-        public virtual Usuarios Usuarios { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Usuarios> Usuarios1 { get; set; }
     }
 }

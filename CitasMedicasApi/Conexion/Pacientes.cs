@@ -37,6 +37,7 @@ namespace CitasMedicasApi.Conexion
         public string Discapacidades { get; set; }
         public Nullable<System.DateTime> FechaRegistro { get; set; }
         public Nullable<System.DateTime> FechaUltimaModificacion { get; set; }
+        public Nullable<int> UsuarioId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Citas> Citas { get; set; }

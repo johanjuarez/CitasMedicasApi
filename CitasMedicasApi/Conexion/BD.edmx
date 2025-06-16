@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SistemaCitasModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SistemaCitasModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Citas">
           <Key>
             <PropertyRef Name="CitaId" />
@@ -14,13 +14,14 @@
           <Property Name="MedicoId" Type="int" Nullable="false" />
           <Property Name="ConsultorioId" Type="int" />
           <Property Name="FechaHora" Type="datetime" Nullable="false" />
-          <Property Name="Estado" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Motivo" Type="varchar" MaxLength="255" />
           <Property Name="Notas" Type="text" />
           <Property Name="UsuarioRegistro" Type="int" />
           <Property Name="FechaRegistro" Type="datetime" />
           <Property Name="UsuarioUltimaModificacion" Type="int" />
           <Property Name="FechaUltimaModificacion" Type="datetime" />
+          <Property Name="FechaHoraFin" Type="datetime" />
+          <Property Name="Estatus" Type="int" />
         </EntityType>
         <EntityType Name="Consultorios">
           <Key>
@@ -41,6 +42,14 @@
           <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Descripcion" Type="varchar" MaxLength="255" />
           <Property Name="FechaRegistro" Type="datetime" />
+        </EntityType>
+        <EntityType Name="EstatusCita">
+          <Key>
+            <PropertyRef Name="EstatusId" />
+          </Key>
+          <Property Name="EstatusId" Type="int" Nullable="false" />
+          <Property Name="Clave" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="NombreMostrar" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="HistorialMedico">
           <Key>
@@ -98,6 +107,7 @@
           <Property Name="Discapacidades" Type="text" />
           <Property Name="FechaRegistro" Type="datetime" />
           <Property Name="FechaUltimaModificacion" Type="datetime" />
+          <Property Name="UsuarioId" Type="int" />
         </EntityType>
         <EntityType Name="Personal">
           <Key>
@@ -136,12 +146,13 @@
             <PropertyRef Name="UsuarioId" />
           </Key>
           <Property Name="UsuarioId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Usuario" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Folio" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="Contraseña" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Usuario" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Contraseña" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="RolId" Type="int" Nullable="false" />
-          <Property Name="FechaRegistro" Type="datetime" />
+          <Property Name="FechaRegistro" Type="datetime" Nullable="false" />
           <Property Name="PersonalId" Type="int" />
+          <Property Name="Correo" Type="nvarchar" MaxLength="150" />
+          <Property Name="RutaImagen" Type="varchar" MaxLength="300" />
         </EntityType>
         <Association Name="FK__Personal__Depart__6B24EA82">
           <End Role="Departamentos" Type="Self.Departamentos" Multiplicity="1" />
@@ -164,6 +175,18 @@
             </Principal>
             <Dependent Role="Citas">
               <PropertyRef Name="ConsultorioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Citas_EstatusCita">
+          <End Role="EstatusCita" Type="Self.EstatusCita" Multiplicity="0..1" />
+          <End Role="Citas" Type="Self.Citas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EstatusCita">
+              <PropertyRef Name="EstatusId" />
+            </Principal>
+            <Dependent Role="Citas">
+              <PropertyRef Name="Estatus" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -311,48 +334,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Personal_Usuarios">
-          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
-          <End Role="Personal" Type="Self.Personal" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuarios">
-              <PropertyRef Name="UsuarioId" />
-            </Principal>
-            <Dependent Role="Personal">
-              <PropertyRef Name="UsuarioId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Usuarios_Personal">
-          <End Role="Personal" Type="Self.Personal" Multiplicity="0..1" />
-          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Personal">
-              <PropertyRef Name="PersonalId" />
-            </Principal>
-            <Dependent Role="Usuarios">
-              <PropertyRef Name="PersonalId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Usuarios_Roles">
-          <End Role="Roles" Type="Self.Roles" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Roles">
-              <PropertyRef Name="RolId" />
-            </Principal>
-            <Dependent Role="Usuarios">
-              <PropertyRef Name="RolId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="SistemaCitasModelStoreContainer">
           <EntitySet Name="Citas" EntityType="Self.Citas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Consultorios" EntityType="Self.Consultorios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Departamentos" EntityType="Self.Departamentos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EstatusCita" EntityType="Self.EstatusCita" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HistorialMedico" EntityType="Self.HistorialMedico" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Medicos" EntityType="Self.Medicos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NotasConsulta" EntityType="Self.NotasConsulta" Schema="dbo" store:Type="Tables" />
@@ -366,6 +352,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_Citas_Consultorios" Association="Self.FK_Citas_Consultorios">
             <End Role="Consultorios" EntitySet="Consultorios" />
+            <End Role="Citas" EntitySet="Citas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Citas_EstatusCita" Association="Self.FK_Citas_EstatusCita">
+            <End Role="EstatusCita" EntitySet="EstatusCita" />
             <End Role="Citas" EntitySet="Citas" />
           </AssociationSet>
           <AssociationSet Name="FK_Citas_Medicos" Association="Self.FK_Citas_Medicos">
@@ -412,21 +402,8 @@
             <End Role="Pacientes" EntitySet="Pacientes" />
             <End Role="NotasConsulta" EntitySet="NotasConsulta" />
           </AssociationSet>
-          <AssociationSet Name="FK_Personal_Usuarios" Association="Self.FK_Personal_Usuarios">
-            <End Role="Usuarios" EntitySet="Usuarios" />
-            <End Role="Personal" EntitySet="Personal" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Usuarios_Personal" Association="Self.FK_Usuarios_Personal">
-            <End Role="Personal" EntitySet="Personal" />
-            <End Role="Usuarios" EntitySet="Usuarios" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Usuarios_Roles" Association="Self.FK_Usuarios_Roles">
-            <End Role="Roles" EntitySet="Roles" />
-            <End Role="Usuarios" EntitySet="Usuarios" />
-          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SistemaCitasModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -439,14 +416,16 @@
           <Property Name="MedicoId" Type="Int32" Nullable="false" />
           <Property Name="ConsultorioId" Type="Int32" />
           <Property Name="FechaHora" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Estado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Motivo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Notas" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="UsuarioRegistro" Type="Int32" />
           <Property Name="FechaRegistro" Type="DateTime" Precision="3" />
           <Property Name="UsuarioUltimaModificacion" Type="Int32" />
           <Property Name="FechaUltimaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="FechaHoraFin" Type="DateTime" Precision="3" />
+          <Property Name="Estatus" Type="Int32" />
           <NavigationProperty Name="Consultorios" Relationship="Self.FK_Citas_Consultorios" FromRole="Citas" ToRole="Consultorios" />
+          <NavigationProperty Name="EstatusCita" Relationship="Self.FK_Citas_EstatusCita" FromRole="Citas" ToRole="EstatusCita" />
           <NavigationProperty Name="Medicos" Relationship="Self.FK_Citas_Medicos" FromRole="Citas" ToRole="Medicos" />
           <NavigationProperty Name="Pacientes" Relationship="Self.FK_Citas_Pacientes" FromRole="Citas" ToRole="Pacientes" />
           <NavigationProperty Name="HistorialMedico" Relationship="Self.FK_HistorialMedico_Citas" FromRole="Citas" ToRole="HistorialMedico" />
@@ -474,6 +453,15 @@
           <Property Name="Descripcion" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="FechaRegistro" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Personal" Relationship="Self.FK__Personal__Depart__6B24EA82" FromRole="Departamentos" ToRole="Personal" />
+        </EntityType>
+        <EntityType Name="EstatusCita">
+          <Key>
+            <PropertyRef Name="EstatusId" />
+          </Key>
+          <Property Name="EstatusId" Type="Int32" Nullable="false" />
+          <Property Name="Clave" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NombreMostrar" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Citas" Relationship="Self.FK_Citas_EstatusCita" FromRole="EstatusCita" ToRole="Citas" />
         </EntityType>
         <EntityType Name="HistorialMedico">
           <Key>
@@ -544,6 +532,7 @@
           <Property Name="Discapacidades" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="FechaRegistro" Type="DateTime" Precision="3" />
           <Property Name="FechaUltimaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioId" Type="Int32" />
           <NavigationProperty Name="Citas" Relationship="Self.FK_Citas_Pacientes" FromRole="Pacientes" ToRole="Citas" />
           <NavigationProperty Name="HistorialMedico" Relationship="Self.FK_HistorialMedico_Pacientes" FromRole="Pacientes" ToRole="HistorialMedico" />
           <NavigationProperty Name="NotasConsulta" Relationship="Self.FK_NotasConsulta_Pacientes" FromRole="Pacientes" ToRole="NotasConsulta" />
@@ -572,8 +561,6 @@
           <Property Name="CURP" Type="String" MaxLength="18" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Departamentos" Relationship="Self.FK__Personal__Depart__6B24EA82" FromRole="Personal" ToRole="Departamentos" />
           <NavigationProperty Name="Medicos" Relationship="Self.FK_Medicos_Personal" FromRole="Personal" ToRole="Medicos" />
-          <NavigationProperty Name="Usuarios" Relationship="Self.FK_Personal_Usuarios" FromRole="Personal" ToRole="Usuarios" />
-          <NavigationProperty Name="Usuarios1" Relationship="Self.FK_Usuarios_Personal" FromRole="Personal" ToRole="Usuarios" />
         </EntityType>
         <EntityType Name="Roles">
           <Key>
@@ -583,22 +570,19 @@
           <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Descripcion" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="FechaRegistro" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Usuarios" Relationship="Self.FK_Usuarios_Roles" FromRole="Roles" ToRole="Usuarios" />
         </EntityType>
         <EntityType Name="Usuarios">
           <Key>
             <PropertyRef Name="UsuarioId" />
           </Key>
           <Property Name="UsuarioId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Usuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Folio" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Contraseña" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Usuario" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Contraseña" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="RolId" Type="Int32" Nullable="false" />
-          <Property Name="FechaRegistro" Type="DateTime" Precision="3" />
+          <Property Name="FechaRegistro" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="PersonalId" Type="Int32" />
-          <NavigationProperty Name="Personal" Relationship="Self.FK_Personal_Usuarios" FromRole="Usuarios" ToRole="Personal" />
-          <NavigationProperty Name="Personal1" Relationship="Self.FK_Usuarios_Personal" FromRole="Usuarios" ToRole="Personal" />
-          <NavigationProperty Name="Roles" Relationship="Self.FK_Usuarios_Roles" FromRole="Usuarios" ToRole="Roles" />
+          <Property Name="Correo" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="RutaImagen" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_Citas_Consultorios">
           <End Role="Consultorios" Type="Self.Consultorios" Multiplicity="0..1" />
@@ -609,6 +593,18 @@
             </Principal>
             <Dependent Role="Citas">
               <PropertyRef Name="ConsultorioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Citas_EstatusCita">
+          <End Role="EstatusCita" Type="Self.EstatusCita" Multiplicity="0..1" />
+          <End Role="Citas" Type="Self.Citas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EstatusCita">
+              <PropertyRef Name="EstatusId" />
+            </Principal>
+            <Dependent Role="Citas">
+              <PropertyRef Name="Estatus" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -768,48 +764,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Personal_Usuarios">
-          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
-          <End Role="Personal" Type="Self.Personal" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuarios">
-              <PropertyRef Name="UsuarioId" />
-            </Principal>
-            <Dependent Role="Personal">
-              <PropertyRef Name="UsuarioId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Usuarios_Personal">
-          <End Role="Personal" Type="Self.Personal" Multiplicity="0..1" />
-          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Personal">
-              <PropertyRef Name="PersonalId" />
-            </Principal>
-            <Dependent Role="Usuarios">
-              <PropertyRef Name="PersonalId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Usuarios_Roles">
-          <End Role="Roles" Type="Self.Roles" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Roles">
-              <PropertyRef Name="RolId" />
-            </Principal>
-            <Dependent Role="Usuarios">
-              <PropertyRef Name="RolId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="SistemaCitasEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Citas" EntityType="Self.Citas" />
           <EntitySet Name="Consultorios" EntityType="Self.Consultorios" />
           <EntitySet Name="Departamentos" EntityType="Self.Departamentos" />
+          <EntitySet Name="EstatusCita" EntityType="Self.EstatusCita" />
           <EntitySet Name="HistorialMedico" EntityType="Self.HistorialMedico" />
           <EntitySet Name="Medicos" EntityType="Self.Medicos" />
           <EntitySet Name="NotasConsulta" EntityType="Self.NotasConsulta" />
@@ -819,6 +778,10 @@
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" />
           <AssociationSet Name="FK_Citas_Consultorios" Association="Self.FK_Citas_Consultorios">
             <End Role="Consultorios" EntitySet="Consultorios" />
+            <End Role="Citas" EntitySet="Citas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Citas_EstatusCita" Association="Self.FK_Citas_EstatusCita">
+            <End Role="EstatusCita" EntitySet="EstatusCita" />
             <End Role="Citas" EntitySet="Citas" />
           </AssociationSet>
           <AssociationSet Name="FK_Citas_Medicos" Association="Self.FK_Citas_Medicos">
@@ -869,18 +832,6 @@
             <End Role="Pacientes" EntitySet="Pacientes" />
             <End Role="NotasConsulta" EntitySet="NotasConsulta" />
           </AssociationSet>
-          <AssociationSet Name="FK_Personal_Usuarios" Association="Self.FK_Personal_Usuarios">
-            <End Role="Usuarios" EntitySet="Usuarios" />
-            <End Role="Personal" EntitySet="Personal" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Usuarios_Personal" Association="Self.FK_Usuarios_Personal">
-            <End Role="Personal" EntitySet="Personal" />
-            <End Role="Usuarios" EntitySet="Usuarios" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Usuarios_Roles" Association="Self.FK_Usuarios_Roles">
-            <End Role="Roles" EntitySet="Roles" />
-            <End Role="Usuarios" EntitySet="Usuarios" />
-          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -896,13 +847,14 @@
                 <ScalarProperty Name="MedicoId" ColumnName="MedicoId" />
                 <ScalarProperty Name="ConsultorioId" ColumnName="ConsultorioId" />
                 <ScalarProperty Name="FechaHora" ColumnName="FechaHora" />
-                <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="Motivo" ColumnName="Motivo" />
                 <ScalarProperty Name="Notas" ColumnName="Notas" />
                 <ScalarProperty Name="UsuarioRegistro" ColumnName="UsuarioRegistro" />
                 <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
                 <ScalarProperty Name="UsuarioUltimaModificacion" ColumnName="UsuarioUltimaModificacion" />
                 <ScalarProperty Name="FechaUltimaModificacion" ColumnName="FechaUltimaModificacion" />
+                <ScalarProperty Name="FechaHoraFin" ColumnName="FechaHoraFin" />
+                <ScalarProperty Name="Estatus" ColumnName="Estatus" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -925,6 +877,15 @@
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
                 <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EstatusCita">
+            <EntityTypeMapping TypeName="SistemaCitasModel.EstatusCita">
+              <MappingFragment StoreEntitySet="EstatusCita">
+                <ScalarProperty Name="EstatusId" ColumnName="EstatusId" />
+                <ScalarProperty Name="Clave" ColumnName="Clave" />
+                <ScalarProperty Name="NombreMostrar" ColumnName="NombreMostrar" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -986,6 +947,7 @@
                 <ScalarProperty Name="Discapacidades" ColumnName="Discapacidades" />
                 <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
                 <ScalarProperty Name="FechaUltimaModificacion" ColumnName="FechaUltimaModificacion" />
+                <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1026,13 +988,14 @@
           <EntitySetMapping Name="Usuarios">
             <EntityTypeMapping TypeName="SistemaCitasModel.Usuarios">
               <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="RutaImagen" ColumnName="RutaImagen" />
                 <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
                 <ScalarProperty Name="Usuario" ColumnName="Usuario" />
-                <ScalarProperty Name="Folio" ColumnName="Folio" />
                 <ScalarProperty Name="Contraseña" ColumnName="Contraseña" />
                 <ScalarProperty Name="RolId" ColumnName="RolId" />
                 <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
                 <ScalarProperty Name="PersonalId" ColumnName="PersonalId" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

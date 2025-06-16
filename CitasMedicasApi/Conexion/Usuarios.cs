@@ -14,23 +14,13 @@ namespace CitasMedicasApi.Conexion
     
     public partial class Usuarios
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Usuarios()
-        {
-            this.Personal = new HashSet<Personal>();
-        }
-    
         public int UsuarioId { get; set; }
         public string Usuario { get; set; }
-        public string Folio { get; set; }
         public string Contraseña { get; set; }
         public int RolId { get; set; }
-        public Nullable<System.DateTime> FechaRegistro { get; set; }
+        public System.DateTime FechaRegistro { get; set; }
         public Nullable<int> PersonalId { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Personal> Personal { get; set; }
-        public virtual Personal Personal1 { get; set; }
-        public virtual Roles Roles { get; set; }
+        public string Correo { get; set; }
+        public string RutaImagen { get; set; }
     }
 }

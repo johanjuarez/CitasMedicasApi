@@ -4,18 +4,20 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="0c3caeff7d614faead58f89248563483" Name="Diagram1" ZoomLevel="67">
-        <EntityTypeShape EntityType="SistemaCitasModel.Citas" Width="1.5" PointX="3" PointY="7.25" IsExpanded="true" />
+      <Diagram DiagramId="c5237bc04029488f89e793faa4f8830e" Name="Diagram1" ZoomLevel="74">
+        <EntityTypeShape EntityType="SistemaCitasModel.Citas" Width="1.5" PointX="3" PointY="2.5" IsExpanded="true" />
         <EntityTypeShape EntityType="SistemaCitasModel.Consultorios" Width="1.5" PointX="0.75" PointY="8.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="SistemaCitasModel.Departamentos" Width="1.5" PointX="1.5" PointY="4.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="SistemaCitasModel.HistorialMedico" Width="1.5" PointX="8.25" PointY="8" IsExpanded="true" />
-        <EntityTypeShape EntityType="SistemaCitasModel.Medicos" Width="1.5" PointX="6" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SistemaCitasModel.NotasConsulta" Width="1.5" PointX="11.25" PointY="7.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="SistemaCitasModel.Pacientes" Width="1.5" PointX="0.75" PointY="20.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="SistemaCitasModel.Personal" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SistemaCitasModel.Roles" Width="1.5" PointX="1.5" PointY="17.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="SistemaCitasModel.Usuarios" Width="1.5" PointX="1.5" PointY="12.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SistemaCitasModel.Departamentos" Width="1.5" PointX="1.5" PointY="25.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SistemaCitasModel.EstatusCita" Width="1.5" PointX="0.75" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SistemaCitasModel.HistorialMedico" Width="1.5" PointX="5.25" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SistemaCitasModel.Medicos" Width="1.5" PointX="0.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SistemaCitasModel.NotasConsulta" Width="1.5" PointX="8.25" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SistemaCitasModel.Pacientes" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SistemaCitasModel.Personal" Width="1.5" PointX="1.5" PointY="19" IsExpanded="true" />
+        <EntityTypeShape EntityType="SistemaCitasModel.Roles" Width="1.5" PointX="5.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SistemaCitasModel.Usuarios" Width="1.5" PointX="7.375" PointY="9.875" IsExpanded="true" />
         <AssociationConnector Association="SistemaCitasModel.FK_Citas_Consultorios" ManuallyRouted="false" />
+        <AssociationConnector Association="SistemaCitasModel.FK_Citas_EstatusCita" ManuallyRouted="false" />
         <AssociationConnector Association="SistemaCitasModel.FK_Citas_Medicos" ManuallyRouted="false" />
         <AssociationConnector Association="SistemaCitasModel.FK_Citas_Pacientes" ManuallyRouted="false" />
         <AssociationConnector Association="SistemaCitasModel.FK_HistorialMedico_Citas" ManuallyRouted="false" />
@@ -28,9 +30,6 @@
         <AssociationConnector Association="SistemaCitasModel.FK_Medicos_Personal" ManuallyRouted="false" />
         <AssociationConnector Association="SistemaCitasModel.FK_NotasConsulta_Medicos" ManuallyRouted="false" />
         <AssociationConnector Association="SistemaCitasModel.FK_NotasConsulta_Pacientes" ManuallyRouted="false" />
-        <AssociationConnector Association="SistemaCitasModel.FK_Personal_Usuarios" ManuallyRouted="false" />
-        <AssociationConnector Association="SistemaCitasModel.FK_Usuarios_Personal" ManuallyRouted="false" />
-        <AssociationConnector Association="SistemaCitasModel.FK_Usuarios_Roles" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

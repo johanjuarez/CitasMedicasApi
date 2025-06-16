@@ -17,10 +17,30 @@ namespace CitasMedicasApi.Controllers
         private SistemaCitasEntities db = new SistemaCitasEntities();
 
         // GET: api/Citas
-        public IQueryable<Citas> GetCitas()
+        // GET: api/Citas
+        [HttpGet]
+        public IHttpActionResult GetCitas(int? usuarioId = null)
         {
-            return db.Citas;
+            if (usuarioId == null)
+                return Ok(db.Citas.ToList());
+
+            var usuario = db.Usuarios.Find(usuarioId);
+            if (usuario == null)
+                return NotFound();
+
+            if (usuario.RolId == 4) // Si es médico
+            {
+                var medico = db.Medicos.FirstOrDefault(m => m.PersonalId == usuario.PersonalId);
+                if (medico == null)
+                    return NotFound();
+
+                var citasMedico = db.Citas.Where(c => c.MedicoId == medico.MedicoId).ToList();
+                return Ok(citasMedico);
+            }
+
+            return Ok(db.Citas.ToList());
         }
+
 
         // GET: api/Citas/5
         [ResponseType(typeof(Citas))]
@@ -101,6 +121,68 @@ namespace CitasMedicasApi.Controllers
             return Ok(citas);
         }
 
+        [HttpGet]
+        [Route("api/Citas/Calendario/{usuarioId}")]
+        public IHttpActionResult GetCitasCalendario(int usuarioId)
+        {
+            var usuario = db.Usuarios.Find(usuarioId);
+            if (usuario == null)
+                return NotFound();
+
+            if (usuario.RolId == 4) // 2 = Médico
+            {
+                var medico = db.Medicos.FirstOrDefault(m => m.PersonalId == usuario.PersonalId);
+                if (medico == null)
+                    return NotFound();
+
+                var citasMedico = db.Citas
+                    .Where(c => c.MedicoId == medico.MedicoId)
+                    .Select(c => new
+                    {
+                        title = "Cita médica",
+                        start = c.FechaHora,
+                        end = c.FechaHoraFin
+                    }).ToList();
+
+                return Ok(citasMedico);
+            }
+
+            // Si no es médico, devuelve todas las citas
+            var todasCitas = db.Citas.Select(c => new
+            {
+                title = "Cita médica",
+                start = c.FechaHora,
+                end = c.FechaHoraFin
+            }).ToList();
+
+            return Ok(todasCitas);
+        }
+
+
+        [HttpGet]
+        [Route("api/Citas/Medico/{usuarioId}")]
+        public IHttpActionResult GetCitasPorMedico(int usuarioId)
+        {
+            var usuario = db.Usuarios.Find(usuarioId);
+            if (usuario == null)
+                return NotFound();
+
+            var personalId = usuario.PersonalId;
+
+            var medico = db.Medicos.FirstOrDefault(m => m.PersonalId == personalId);
+            if (medico == null)
+                return NotFound();
+
+            var citasDelMedico = db.Citas
+                .Where(c => c.MedicoId == medico.MedicoId)
+                .ToList();
+
+            return Ok(citasDelMedico);
+        }
+
+
+
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -114,5 +196,9 @@ namespace CitasMedicasApi.Controllers
         {
             return db.Citas.Count(e => e.CitaId == id) > 0;
         }
+
+
+    
+
     }
 }

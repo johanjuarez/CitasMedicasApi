@@ -28,6 +28,7 @@ namespace CitasMedicasApi.Conexion
         public virtual DbSet<Citas> Citas { get; set; }
         public virtual DbSet<Consultorios> Consultorios { get; set; }
         public virtual DbSet<Departamentos> Departamentos { get; set; }
+        public virtual DbSet<EstatusCita> EstatusCita { get; set; }
         public virtual DbSet<HistorialMedico> HistorialMedico { get; set; }
         public virtual DbSet<Medicos> Medicos { get; set; }
         public virtual DbSet<NotasConsulta> NotasConsulta { get; set; }

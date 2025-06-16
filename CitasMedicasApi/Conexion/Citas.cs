@@ -26,15 +26,17 @@ namespace CitasMedicasApi.Conexion
         public int MedicoId { get; set; }
         public Nullable<int> ConsultorioId { get; set; }
         public System.DateTime FechaHora { get; set; }
-        public string Estado { get; set; }
         public string Motivo { get; set; }
         public string Notas { get; set; }
         public Nullable<int> UsuarioRegistro { get; set; }
         public Nullable<System.DateTime> FechaRegistro { get; set; }
         public Nullable<int> UsuarioUltimaModificacion { get; set; }
         public Nullable<System.DateTime> FechaUltimaModificacion { get; set; }
+        public Nullable<System.DateTime> FechaHoraFin { get; set; }
+        public Nullable<int> Estatus { get; set; }
     
         public virtual Consultorios Consultorios { get; set; }
+        public virtual EstatusCita EstatusCita { get; set; }
         public virtual Medicos Medicos { get; set; }
         public virtual Pacientes Pacientes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
