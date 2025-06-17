@@ -83,7 +83,7 @@
           <Property Name="PacienteId" Type="int" Nullable="false" />
           <Property Name="Sintomas" Type="text" />
           <Property Name="Observaciones" Type="text" />
-          <Property Name="Diagnostico" Type="text" Nullable="false" />
+          <Property Name="Diagnostico" Type="varchar(max)" />
           <Property Name="Tratamiento" Type="text" />
           <Property Name="Medicamentos" Type="text" />
           <Property Name="FechaRegistro" Type="datetime" />
@@ -504,7 +504,7 @@
           <Property Name="PacienteId" Type="Int32" Nullable="false" />
           <Property Name="Sintomas" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Observaciones" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Diagnostico" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Diagnostico" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Tratamiento" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Medicamentos" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="FechaRegistro" Type="DateTime" Precision="3" />

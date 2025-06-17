@@ -238,6 +238,7 @@
     <Compile Include="Controllers\EstatusCitaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MedicosController.cs" />
+    <Compile Include="Controllers\NotasConsultaController.cs" />
     <Compile Include="Controllers\PacientesController.cs" />
     <Compile Include="Controllers\PersonalController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
@@ -246,6 +247,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\DTOS\CrearNotaDTO.cs" />
     <Compile Include="Models\DTOS\UsuarioPersonalDTO.cs" />
     <Compile Include="Models\Logueo.cs" />
     <Compile Include="Models\Responses\LoginResponse.cs" />
