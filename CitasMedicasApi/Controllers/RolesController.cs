@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CitasMedicasApi.Conexion;
+using CitasMedicasApi.Factory;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -8,7 +10,6 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
-using CitasMedicasApi.Conexion;
 
 namespace CitasMedicasApi.Controllers
 {
@@ -70,7 +71,6 @@ namespace CitasMedicasApi.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Roles
         [ResponseType(typeof(Roles))]
         public IHttpActionResult PostRoles(Roles roles)
         {
@@ -79,11 +79,24 @@ namespace CitasMedicasApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.Roles.Add(roles);
+            RolesCreator creador = new RolesCreatorConcreto();
+
+            Roles nuevoRol;
+            try
+            {
+                nuevoRol = creador.CrearRol(roles.Nombre, roles.Descripcion);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            db.Roles.Add(nuevoRol);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = roles.RolId }, roles);
+            return CreatedAtRoute("DefaultApi", new { id = nuevoRol.RolId }, nuevoRol);
         }
+
 
         // DELETE: api/Roles/5
         [ResponseType(typeof(Roles))]

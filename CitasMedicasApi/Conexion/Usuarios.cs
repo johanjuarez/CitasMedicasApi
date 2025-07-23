@@ -14,13 +14,15 @@ namespace CitasMedicasApi.Conexion
     
     public partial class Usuarios
     {
+        public string Contraseña { get; set; }
         public int UsuarioId { get; set; }
         public string Usuario { get; set; }
-        public string Contraseña { get; set; }
         public int RolId { get; set; }
         public System.DateTime FechaRegistro { get; set; }
         public Nullable<int> PersonalId { get; set; }
         public string Correo { get; set; }
         public string RutaImagen { get; set; }
+        public byte[] PasswordHash { get; set; }
+        public byte[] PasswordSalt { get; set; }
     }
 }

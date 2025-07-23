@@ -180,6 +180,20 @@ namespace CitasMedicasApi.Controllers
             return Ok(citasDelMedico);
         }
 
+        [HttpPut]
+        [Route("api/Citas/AsignarNota/{citaId}/{notaId}")]
+        public IHttpActionResult AsignarNota(int citaId, int notaId)
+        {
+            var cita = db.Citas.Find(citaId);
+            if (cita == null)
+                return NotFound();
+
+            cita.NotasId = notaId;
+            db.SaveChanges();
+
+            return Ok("Nota asignada correctamente.");
+        }
+
 
 
 

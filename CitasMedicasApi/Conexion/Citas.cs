@@ -27,13 +27,14 @@ namespace CitasMedicasApi.Conexion
         public Nullable<int> ConsultorioId { get; set; }
         public System.DateTime FechaHora { get; set; }
         public string Motivo { get; set; }
-        public string Notas { get; set; }
         public Nullable<int> UsuarioRegistro { get; set; }
         public Nullable<System.DateTime> FechaRegistro { get; set; }
         public Nullable<int> UsuarioUltimaModificacion { get; set; }
         public Nullable<System.DateTime> FechaUltimaModificacion { get; set; }
         public Nullable<System.DateTime> FechaHoraFin { get; set; }
         public Nullable<int> Estatus { get; set; }
+        public Nullable<int> Notas { get; set; }
+        public Nullable<int> NotasId { get; set; }
     
         public virtual Consultorios Consultorios { get; set; }
         public virtual EstatusCita EstatusCita { get; set; }

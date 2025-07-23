@@ -4,8 +4,8 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="c5237bc04029488f89e793faa4f8830e" Name="Diagram1" ZoomLevel="74">
-        <EntityTypeShape EntityType="SistemaCitasModel.Citas" Width="1.5" PointX="3" PointY="2.5" IsExpanded="true" />
+      <Diagram DiagramId="8b9a552aab5946c59660df1b876fcd96" Name="Diagram1" ZoomLevel="78">
+        <EntityTypeShape EntityType="SistemaCitasModel.Citas" Width="1.5" PointX="3" PointY="2.375" IsExpanded="true" />
         <EntityTypeShape EntityType="SistemaCitasModel.Consultorios" Width="1.5" PointX="0.75" PointY="8.125" IsExpanded="true" />
         <EntityTypeShape EntityType="SistemaCitasModel.Departamentos" Width="1.5" PointX="1.5" PointY="25.375" IsExpanded="true" />
         <EntityTypeShape EntityType="SistemaCitasModel.EstatusCita" Width="1.5" PointX="0.75" PointY="11.375" IsExpanded="true" />
@@ -15,7 +15,7 @@
         <EntityTypeShape EntityType="SistemaCitasModel.Pacientes" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="true" />
         <EntityTypeShape EntityType="SistemaCitasModel.Personal" Width="1.5" PointX="1.5" PointY="19" IsExpanded="true" />
         <EntityTypeShape EntityType="SistemaCitasModel.Roles" Width="1.5" PointX="5.75" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SistemaCitasModel.Usuarios" Width="1.5" PointX="7.375" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SistemaCitasModel.Usuarios" Width="1.5" PointX="7.75" PointY="7.75" IsExpanded="true" />
         <AssociationConnector Association="SistemaCitasModel.FK_Citas_Consultorios" ManuallyRouted="false" />
         <AssociationConnector Association="SistemaCitasModel.FK_Citas_EstatusCita" ManuallyRouted="false" />
         <AssociationConnector Association="SistemaCitasModel.FK_Citas_Medicos" ManuallyRouted="false" />

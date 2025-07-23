@@ -1,4 +1,5 @@
 ﻿using CitasMedicasApi.Conexion;
+using CitasMedicasApi.Helpers;
 using CitasMedicasApi.Models.DTOS;
 using System;
 using System.Collections.Generic;
@@ -71,7 +72,8 @@ namespace CitasMedicasApi.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Usuarios
+
+
         [ResponseType(typeof(Usuarios))]
         public IHttpActionResult PostUsuarios(Usuarios usuarios)
         {
@@ -80,11 +82,34 @@ namespace CitasMedicasApi.Controllers
                 return BadRequest(ModelState);
             }
 
+            var hashSalt = PasswordHash.Crear(usuarios.Contraseña);
+            usuarios.PasswordHash = hashSalt.Hash;
+            usuarios.PasswordSalt = hashSalt.Salt;
+
+            // Limpiar la contraseña temporal
+            usuarios.Contraseña = null;
+
             db.Usuarios.Add(usuarios);
             db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = usuarios.UsuarioId }, usuarios);
         }
+
+
+        //// POST: api/Usuarios
+        //[ResponseType(typeof(Usuarios))]
+        //public IHttpActionResult PostUsuarios(Usuarios usuarios)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+
+        //    db.Usuarios.Add(usuarios);
+        //    db.SaveChanges();
+
+        //    return CreatedAtRoute("DefaultApi", new { id = usuarios.UsuarioId }, usuarios);
+        //}
 
         // DELETE: api/Usuarios/5
         [ResponseType(typeof(Usuarios))]

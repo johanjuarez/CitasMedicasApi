@@ -14,22 +14,23 @@
           <Property Name="MedicoId" Type="int" Nullable="false" />
           <Property Name="ConsultorioId" Type="int" />
           <Property Name="FechaHora" Type="datetime" Nullable="false" />
-          <Property Name="Motivo" Type="varchar" MaxLength="255" />
-          <Property Name="Notas" Type="text" />
+          <Property Name="Motivo" Type="varchar(max)" />
           <Property Name="UsuarioRegistro" Type="int" />
           <Property Name="FechaRegistro" Type="datetime" />
           <Property Name="UsuarioUltimaModificacion" Type="int" />
           <Property Name="FechaUltimaModificacion" Type="datetime" />
           <Property Name="FechaHoraFin" Type="datetime" />
           <Property Name="Estatus" Type="int" />
+          <Property Name="Notas" Type="int" />
+          <Property Name="NotasId" Type="int" />
         </EntityType>
         <EntityType Name="Consultorios">
           <Key>
             <PropertyRef Name="ConsultorioId" />
           </Key>
           <Property Name="ConsultorioId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="Especialidad" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="25" />
+          <Property Name="Especialidad" Type="varchar" MaxLength="30" />
           <Property Name="Ubicacion" Type="varchar" MaxLength="255" />
           <Property Name="FechaRegistro" Type="datetime" />
           <Property Name="FechaUltimaModificacion" Type="datetime" />
@@ -39,8 +40,8 @@
             <PropertyRef Name="DepartamentoId" />
           </Key>
           <Property Name="DepartamentoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="Descripcion" Type="varchar" MaxLength="255" />
+          <Property Name="Nombre" Type="varchar" MaxLength="20" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="70" />
           <Property Name="FechaRegistro" Type="datetime" />
         </EntityType>
         <EntityType Name="EstatusCita">
@@ -49,7 +50,7 @@
           </Key>
           <Property Name="EstatusId" Type="int" Nullable="false" />
           <Property Name="Clave" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="NombreMostrar" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="NombreMostrar" Type="varchar" MaxLength="25" />
         </EntityType>
         <EntityType Name="HistorialMedico">
           <Key>
@@ -67,8 +68,8 @@
           </Key>
           <Property Name="MedicoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PersonalId" Type="int" Nullable="false" />
-          <Property Name="Especialidad" Type="varchar" MaxLength="100" />
-          <Property Name="CedulaProfesional" Type="varchar" MaxLength="50" />
+          <Property Name="Especialidad" Type="varchar" MaxLength="60" />
+          <Property Name="CedulaProfesional" Type="varchar" MaxLength="15" />
           <Property Name="ConsultorioId" Type="int" />
           <Property Name="FechaRegistro" Type="datetime" />
           <Property Name="FechaUltimaModificacion" Type="datetime" />
@@ -81,11 +82,11 @@
           <Property Name="CitaId" Type="int" Nullable="false" />
           <Property Name="MedicoId" Type="int" Nullable="false" />
           <Property Name="PacienteId" Type="int" Nullable="false" />
-          <Property Name="Sintomas" Type="text" />
-          <Property Name="Observaciones" Type="text" />
+          <Property Name="Sintomas" Type="varchar(max)" />
+          <Property Name="Observaciones" Type="varchar(max)" />
           <Property Name="Diagnostico" Type="varchar(max)" />
-          <Property Name="Tratamiento" Type="text" />
-          <Property Name="Medicamentos" Type="text" />
+          <Property Name="Tratamiento" Type="varchar(max)" />
+          <Property Name="Medicamentos" Type="varchar(max)" />
           <Property Name="FechaRegistro" Type="datetime" />
         </EntityType>
         <EntityType Name="Pacientes">
@@ -93,17 +94,17 @@
             <PropertyRef Name="PacienteId" />
           </Key>
           <Property Name="PacienteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="ApellidoPaterno" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="ApellidoMaterno" Type="varchar" MaxLength="100" />
+          <Property Name="Nombre" Type="varchar" MaxLength="15" />
+          <Property Name="ApellidoPaterno" Type="varchar" MaxLength="15" />
+          <Property Name="ApellidoMaterno" Type="varchar" MaxLength="15" />
           <Property Name="FechaNacimiento" Type="date" Nullable="false" />
           <Property Name="Sexo" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="Correo" Type="varchar" MaxLength="150" />
-          <Property Name="Telefono" Type="varchar" MaxLength="20" />
-          <Property Name="Direccion" Type="varchar" MaxLength="255" />
-          <Property Name="NSS" Type="varchar" MaxLength="15" />
-          <Property Name="Alergias" Type="text" />
-          <Property Name="EnfermedadesCronicas" Type="text" />
+          <Property Name="Telefono" Type="varchar" MaxLength="10" />
+          <Property Name="Direccion" Type="varchar(max)" />
+          <Property Name="NSS" Type="varchar(max)" />
+          <Property Name="Alergias" Type="varchar(max)" />
+          <Property Name="EnfermedadesCronicas" Type="varchar(max)" />
           <Property Name="Discapacidades" Type="text" />
           <Property Name="FechaRegistro" Type="datetime" />
           <Property Name="FechaUltimaModificacion" Type="datetime" />
@@ -114,16 +115,16 @@
             <PropertyRef Name="PersonalId" />
           </Key>
           <Property Name="PersonalId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="ApellidoPaterno" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="ApellidoMaterno" Type="varchar" MaxLength="100" />
+          <Property Name="Nombre" Type="varchar" MaxLength="15" />
+          <Property Name="ApellidoPaterno" Type="varchar" MaxLength="15" />
+          <Property Name="ApellidoMaterno" Type="varchar" MaxLength="15" />
           <Property Name="Correo" Type="varchar" MaxLength="150" />
-          <Property Name="Telefono" Type="varchar" MaxLength="20" />
+          <Property Name="Telefono" Type="varchar" MaxLength="10" />
           <Property Name="Direccion" Type="varchar" MaxLength="255" />
           <Property Name="FechaNacimiento" Type="date" />
-          <Property Name="RFC" Type="varchar" MaxLength="13" />
-          <Property Name="NSS" Type="varchar" MaxLength="15" />
-          <Property Name="Cargo" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="RFC" Type="varchar" MaxLength="12" />
+          <Property Name="NSS" Type="varchar" MaxLength="11" />
+          <Property Name="Cargo" Type="varchar" MaxLength="50" />
           <Property Name="FechaContratacion" Type="datetime" Nullable="false" />
           <Property Name="FechaRegistro" Type="datetime" />
           <Property Name="UsuarioId" Type="int" />
@@ -146,13 +147,14 @@
             <PropertyRef Name="UsuarioId" />
           </Key>
           <Property Name="UsuarioId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Usuario" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="Contraseña" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Usuario" Type="varchar" MaxLength="25" />
           <Property Name="RolId" Type="int" Nullable="false" />
           <Property Name="FechaRegistro" Type="datetime" Nullable="false" />
           <Property Name="PersonalId" Type="int" />
-          <Property Name="Correo" Type="nvarchar" MaxLength="150" />
+          <Property Name="Correo" Type="varchar" MaxLength="255" />
           <Property Name="RutaImagen" Type="varchar" MaxLength="300" />
+          <Property Name="PasswordHash" Type="varbinary(max)" />
+          <Property Name="PasswordSalt" Type="varbinary(max)" />
         </EntityType>
         <Association Name="FK__Personal__Depart__6B24EA82">
           <End Role="Departamentos" Type="Self.Departamentos" Multiplicity="1" />
@@ -416,14 +418,15 @@
           <Property Name="MedicoId" Type="Int32" Nullable="false" />
           <Property Name="ConsultorioId" Type="Int32" />
           <Property Name="FechaHora" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Motivo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Notas" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Motivo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="UsuarioRegistro" Type="Int32" />
           <Property Name="FechaRegistro" Type="DateTime" Precision="3" />
           <Property Name="UsuarioUltimaModificacion" Type="Int32" />
           <Property Name="FechaUltimaModificacion" Type="DateTime" Precision="3" />
           <Property Name="FechaHoraFin" Type="DateTime" Precision="3" />
           <Property Name="Estatus" Type="Int32" />
+          <Property Name="Notas" Type="Int32" />
+          <Property Name="NotasId" Type="Int32" />
           <NavigationProperty Name="Consultorios" Relationship="Self.FK_Citas_Consultorios" FromRole="Citas" ToRole="Consultorios" />
           <NavigationProperty Name="EstatusCita" Relationship="Self.FK_Citas_EstatusCita" FromRole="Citas" ToRole="EstatusCita" />
           <NavigationProperty Name="Medicos" Relationship="Self.FK_Citas_Medicos" FromRole="Citas" ToRole="Medicos" />
@@ -436,8 +439,8 @@
             <PropertyRef Name="ConsultorioId" />
           </Key>
           <Property Name="ConsultorioId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Especialidad" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Especialidad" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="Ubicacion" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="FechaRegistro" Type="DateTime" Precision="3" />
           <Property Name="FechaUltimaModificacion" Type="DateTime" Precision="3" />
@@ -449,8 +452,8 @@
             <PropertyRef Name="DepartamentoId" />
           </Key>
           <Property Name="DepartamentoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Descripcion" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Nombre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
           <Property Name="FechaRegistro" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Personal" Relationship="Self.FK__Personal__Depart__6B24EA82" FromRole="Departamentos" ToRole="Personal" />
         </EntityType>
@@ -460,7 +463,7 @@
           </Key>
           <Property Name="EstatusId" Type="Int32" Nullable="false" />
           <Property Name="Clave" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="NombreMostrar" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NombreMostrar" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Citas" Relationship="Self.FK_Citas_EstatusCita" FromRole="EstatusCita" ToRole="Citas" />
         </EntityType>
         <EntityType Name="HistorialMedico">
@@ -483,8 +486,8 @@
           </Key>
           <Property Name="MedicoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="PersonalId" Type="Int32" Nullable="false" />
-          <Property Name="Especialidad" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="CedulaProfesional" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Especialidad" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="CedulaProfesional" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="ConsultorioId" Type="Int32" />
           <Property Name="FechaRegistro" Type="DateTime" Precision="3" />
           <Property Name="FechaUltimaModificacion" Type="DateTime" Precision="3" />
@@ -518,15 +521,15 @@
             <PropertyRef Name="PacienteId" />
           </Key>
           <Property Name="PacienteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ApellidoPaterno" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ApellidoMaterno" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Nombre" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="ApellidoPaterno" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="ApellidoMaterno" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="FechaNacimiento" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Sexo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Correo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="Telefono" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Direccion" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="NSS" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Telefono" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Direccion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="NSS" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Alergias" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="EnfermedadesCronicas" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Discapacidades" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
@@ -542,16 +545,16 @@
             <PropertyRef Name="PersonalId" />
           </Key>
           <Property Name="PersonalId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ApellidoPaterno" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ApellidoMaterno" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Nombre" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="ApellidoPaterno" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="ApellidoMaterno" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="Correo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="Telefono" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Telefono" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="Direccion" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="FechaNacimiento" Type="DateTime" Precision="0" />
-          <Property Name="RFC" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
-          <Property Name="NSS" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="Cargo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RFC" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="NSS" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="Cargo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="FechaContratacion" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="FechaRegistro" Type="DateTime" Precision="3" />
           <Property Name="UsuarioId" Type="Int32" />
@@ -576,13 +579,14 @@
             <PropertyRef Name="UsuarioId" />
           </Key>
           <Property Name="UsuarioId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Usuario" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Contraseña" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Usuario" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
           <Property Name="RolId" Type="Int32" Nullable="false" />
           <Property Name="FechaRegistro" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="PersonalId" Type="Int32" />
-          <Property Name="Correo" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Correo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="RutaImagen" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="PasswordHash" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="PasswordSalt" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <Association Name="FK_Citas_Consultorios">
           <End Role="Consultorios" Type="Self.Consultorios" Multiplicity="0..1" />
@@ -848,13 +852,14 @@
                 <ScalarProperty Name="ConsultorioId" ColumnName="ConsultorioId" />
                 <ScalarProperty Name="FechaHora" ColumnName="FechaHora" />
                 <ScalarProperty Name="Motivo" ColumnName="Motivo" />
-                <ScalarProperty Name="Notas" ColumnName="Notas" />
                 <ScalarProperty Name="UsuarioRegistro" ColumnName="UsuarioRegistro" />
                 <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
                 <ScalarProperty Name="UsuarioUltimaModificacion" ColumnName="UsuarioUltimaModificacion" />
                 <ScalarProperty Name="FechaUltimaModificacion" ColumnName="FechaUltimaModificacion" />
                 <ScalarProperty Name="FechaHoraFin" ColumnName="FechaHoraFin" />
                 <ScalarProperty Name="Estatus" ColumnName="Estatus" />
+                <ScalarProperty Name="Notas" ColumnName="Notas" />
+                <ScalarProperty Name="NotasId" ColumnName="NotasId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -988,14 +993,15 @@
           <EntitySetMapping Name="Usuarios">
             <EntityTypeMapping TypeName="SistemaCitasModel.Usuarios">
               <MappingFragment StoreEntitySet="Usuarios">
-                <ScalarProperty Name="RutaImagen" ColumnName="RutaImagen" />
+                <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
                 <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
                 <ScalarProperty Name="Usuario" ColumnName="Usuario" />
-                <ScalarProperty Name="Contraseña" ColumnName="Contraseña" />
                 <ScalarProperty Name="RolId" ColumnName="RolId" />
                 <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
                 <ScalarProperty Name="PersonalId" ColumnName="PersonalId" />
                 <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="RutaImagen" ColumnName="RutaImagen" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

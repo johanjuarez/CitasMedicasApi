@@ -114,5 +114,24 @@ namespace CitasMedicasApi.Controllers
         {
             return db.Pacientes.Count(e => e.PacienteId == id) > 0;
         }
+
+        [HttpPost]
+        [Route("api/Pacientes/Importar")]  
+        public IHttpActionResult ImportarPacientes(List<Pacientes> pacientes)
+        {
+            if (pacientes == null || !pacientes.Any())
+                return BadRequest("Lista vacía.");
+
+            foreach (var paciente in pacientes)
+            {
+
+                db.Pacientes.Add(paciente);
+            }
+
+            db.SaveChanges();
+
+            return Ok("Pacientes importados correctamente.");
+        }
+
     }
 }

@@ -230,8 +230,8 @@
     <Compile Include="Conexion\Usuarios.cs">
       <DependentUpon>BD.tt</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\ReportesController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
-    <Compile Include="Controllers\BusquedaController.cs" />
     <Compile Include="Controllers\CitasController.cs" />
     <Compile Include="Controllers\ConsultoriosController.cs" />
     <Compile Include="Controllers\DepartamentosController.cs" />
@@ -244,12 +244,24 @@
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Factory\RolesCreator.cs" />
+    <Compile Include="Factory\RolesCreatorConcreto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\EmailService.cs" />
+    <Compile Include="Helpers\Encriptado.cs" />
+    <Compile Include="Helpers\OtpService.cs" />
+    <Compile Include="Helpers\PasswordHash.cs" />
+    <Compile Include="Models\DTOS\CitaDetalleDto.cs" />
     <Compile Include="Models\DTOS\CrearNotaDTO.cs" />
+    <Compile Include="Models\DTOS\DepartamentoDto.cs" />
+    <Compile Include="Models\DTOS\EncryptedDto.cs" />
     <Compile Include="Models\DTOS\UsuarioPersonalDTO.cs" />
+    <Compile Include="Models\EmailConfig.cs" />
+    <Compile Include="Models\HashSalt.cs" />
     <Compile Include="Models\Logueo.cs" />
+    <Compile Include="Models\OtpRequest.cs" />
     <Compile Include="Models\Responses\LoginResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
